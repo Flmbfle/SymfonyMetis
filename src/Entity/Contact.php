@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -15,9 +16,9 @@ class Contact
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $objet = null;
+    private ?string $subject = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\Email(message: "Veuillez saisir une adresse e-mail valide.")]
     private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -28,14 +29,14 @@ class Contact
         return $this->id;
     }
 
-    public function getObjet(): ?string
+    public function getSubject(): ?string
     {
-        return $this->objet;
+        return $this->subject;
     }
 
-    public function setObjet(string $objet): static
+    public function setSubject(string $subject): static
     {
-        $this->objet = $objet;
+        $this->subject = $subject;
 
         return $this;
     }

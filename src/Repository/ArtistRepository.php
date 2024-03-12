@@ -45,4 +45,18 @@ class ArtistRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    // public function getSomeArtists($name)
+    // {
+    //     $qb = $this->createQueryBuilder('a');
+    //     $artists = $qb
+    //         ->andWhere('a.name like :name')
+    //         ->setParameter('name', '%'.$name.'%')
+    //         ->orderBy('a.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery();
+
+    //     //$artists = $qb->getQuery();
+    //     return $artists->execute();
+    // }
 }

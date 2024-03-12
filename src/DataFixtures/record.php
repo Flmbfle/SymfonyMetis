@@ -41,3 +41,6 @@ $disc = array(
   array('disc_id' => '15','disc_title' => 'Laboratory of sound','disc_year' => '1995','disc_picture' => 'Laboratory of sound.jpeg','disc_label' => 'Rebel Rec.','disc_genre' => 'Rock','disc_price' => '33.00','artist_id' => '9'),
   array('disc_id' => '24','disc_title' => 'Veigar','disc_year' => '2004','disc_picture' => 'sdf.jpeg','disc_label' => 'AP','disc_genre' => 'Magicien','disc_price' => '3200.00','artist_id' => '2')
 );
+
+
+class record {};

@@ -14,8 +14,8 @@ class Jeu1 extends Fixture
         // $product = new Product();
         $artist1 = new Artist();
 
-        $artist1->setArtistName("Queens Of The Stone Age");
-        $artist1->setArtistUrl("https://google.fr");
+        $artist1->setName("Queens Of The Stone Age");
+        $artist1->setUrl("https://google.fr");
 
         $manager->persist($artist1);
 

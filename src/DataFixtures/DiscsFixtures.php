@@ -20,8 +20,8 @@ class DiscsFixtures extends Fixture
             $artistDB = new Artist();
             $artistDB
             ->setId($art['artist_id'])
-            ->setArtistName($art['artist_name'])
-            ->setArtistUrl($art['artist_url']);
+            ->setName($art['artist_name'])
+            ->setUrl($art['artist_url']);
 
             $manager->persist($artistDB);
             $metadata = $manager->getClassMetadata(Artist::class);

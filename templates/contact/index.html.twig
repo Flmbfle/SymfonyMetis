@@ -7,7 +7,10 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-<div class="row text-center">
+<div class="row text-center d-flex flex-wrap">
+
+    {# this form theme will be applied only to the form of this template #}
+    {% form_theme form 'foundation_5_layout.html.twig' %}
 
     {{ form_start(form) }}
     <div class="my-custom-class-for-errors">
@@ -25,9 +28,13 @@
             {{ form_row(form.message) }}
         </div> #}
         ...
-            {{ form_label(form.objet, "Mon libellé a été modifié") }}
-            {{ form_widget(form.objet, {'attr': {'class': 'btn-light col-6'} }) }}
-            {{ form_errors(form.objet,) }}
+            {{ form_label(form.objet, "") }}
+            {{ form_widget(form.objet, {'attr': {'class': 'btn-light col-5 m-1'} }) }}
+            {{ form_label(form.email, "") }}
+            {{ form_widget(form.email, {'attr': {'class': 'btn-light col-5 m-1'} }) }}
+            {{ form_label(form.message, "") }}
+            {{ form_widget(form.message, {'attr': {'class': 'btn-light col-5 m-1'} }) }}
+            {{ form_errors(form.objet, {'attr': {'class': 'btn-light col-5'} }) }}
         ...
     </div>
     {{ form_end(form) }}

@@ -4,3 +4,10 @@ twig:
 when@test:
     twig:
         strict_variables: true
+        form_themes: ['bootstrap_5_horizontal_layout.html.twig']
+        paths:
+            # pointe vers le dossier d'images
+            '%kernel.project_dir%/assets/images': images
+            # pointe vers le dossier CSS
+            '%kernel.project_dir%/assets/styles': styles
+
