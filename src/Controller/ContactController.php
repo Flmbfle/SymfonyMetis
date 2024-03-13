@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\DemoFormType;
 use App\Form\ContactFormType;
+use App\Service\MailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Mailer\MailerInterface;
@@ -20,14 +21,13 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 class ContactController extends AbstractController
 {
     // private $csrfTokenManager;
-
     // public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
     // {
     //     $this->csrfTokenManager = $csrfTokenManager;
     // }
 
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, MailService $ms): Response
     {
         $form = $this->createForm(ContactFormType::class);
         $form->handleRequest($request);
@@ -40,35 +40,35 @@ class ContactController extends AbstractController
             //     throw $this->createAccessDeniedException('Invalid CSRF token.');
             //}
 
-            // Créer une instance de Contact et affecter les données
-            $message = new Contact();
-            $message->setEmail($data->getEmail());
-            $message->setSubject($data->getSubject());
-            $message->setMessage($data->getMessage());
+            //on crée une instance de Contact
+            $message = new Contact ();
 
-            $entityManager->persist($message);
-            $entityManager->flush();
+            // Traitement des données du formulaire
+            $message = $form -> getData ();
 
-            // Envoi de l'e-mail
-            $email = (new TemplatedEmail())
-                ->from($message->getEmail())
-                ->to('votre@email.com')
-                ->subject($message->getSubject())
-                ->htmlTemplate('emails/contact_email.html.twig')
-                ->context([
-                    'sender_email' => $message->getEmail(),
-                    'subject' => $message->getSubject(),
-                    'message' => $message->getMessage(),
-                ]);
-        
-            $mailer->send($email);
-            
-            return $this->redirectToRoute('app_accueil');
+            //on stocke les données récupérées dans la variable $message
+            $message -> setEmail ($message -> getEmail ());
+            $message -> setObjet ($message -> getObjet ());
+            $message -> setMessage ($message -> getMessage ());
+
+            $entityManager -> persist ($message);
+            $entityManager -> flush ();
+
+
+            // envoi de mail avec notre service MailService
+            $ms->sendMail('erwabtot@gmail.com', $data->getEmail(), $data->getObjet(), $data->getMessage());
+            ($message -> getEmail ());
+
+            return $this -> redirectToRoute ('app_accueil');
+
         }
-    
-        return $this->render('contact/index.html.twig', [
-            'form' => $form->createView(),
-            'form' => $form
-        ]);
+
+        // A partir de la version 6.2 de Symfony, on n'est plus obligé d'écrire $form->createView(), il suffit de passer l'instance de FormInterface à la méthode render
+        return $this -> render ('contact/index.html.twig',
+        [
+            'form' => $form -> createView (),
+            // 'form' => $form
+        ]
+        );
     }
 }

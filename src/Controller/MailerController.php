@@ -1,62 +1,62 @@
 <?php
 
-namespace App\Controller;
+// namespace App\Controller;
 
-use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-// use Symfony\Component\Mime\Email;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Mime\Part\DataPart;
-use Symfony\Component\Mime\Part\File;
+// use App\Entity\Contact;
+// use App\Form\ContactFormType;
+// use App\Service\MailService;
+// use Doctrine\ORM\EntityManagerInterface;
+// use Symfony\Component\HttpFoundation\Request;
+// use Symfony\Component\HttpFoundation\Response;
+// use Symfony\Component\Mailer\MailerInterface;
+// use Symfony\Component\Routing\Annotation\Route;
+// use symfony\bundle\FrameworkBundle\Controller\AbstractController;
 
-class MailerController extends AbstractController
-{
-    #[Route('/email')]
-    public function sendEmail(MailerInterface $mailer): Response
-    {
-        $email = (new TemplatedEmail())
-            ->from('hello@example.com')
+// class ContactController extends AbstractController
+// {
+//     #[Route ('/contact', name: 'app_contact')]
+    
+//     public function index (Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, MailService $ms): Response
+//     {
+//         $form = $this -> createForm (ContactFormType::class);
+        
+//         $form -> handleRequest ($request);
 
-            ->to(new Address('ryan@example.com'))
-            
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
+//         if ($form -> isSubmitted () && $form -> isValid ())
+//         {
+//             //on crée une instance de Contact
+//             $message = new Contact ();
 
-            ->subject('Thanks for singing up !')
+//             // Traitement des données du formulaire
+//             $message = $form -> getData ();
 
-            ->htmlTemplate('emails/signup.html.twig')
-            
-            ->context([
-                'expiration_date' => new DateTime('+7 days'),
-                'username' => 'foo',
-            ])
-                
-            // Intergrer image
-            ->addPart((new DataPart(fopen('/path/to/images/logo.png', 'r'), 'logo', 'image/png'))->asInLine())
+//             //on stocke les données récupérées dans la variable $message
+//             $message -> setUtilisateur ($message -> getUtilisateur ());
+//             $message -> setEmail ($message -> getEmail ());
+//             $message -> setObject ($message -> getObject ());
+//             $message -> setMessage ($message -> getMessage ());
 
-            ->addPart((new DataPart(new File('/path/to/images/signature.gif'), 'footer-signature', 'image/gif'))->asInLine())
+//             $entityManager -> persist ($message);
+//             $entityManager -> flush ();
 
-            // Integrer des fichiers joints
-            
-            ->addPart(new DataPart(new File('/path/to/documents/terms-of-use.pdf')))
 
-            ->addPart(new DataPart(new File('/path/to/documents/privacy.pdf'), 'Privacy Policy'))
+//             // envoi de mail avec notre service MailService
+//             $email = $ms -> sendMail ('qvufqf@gmail.com', $message -> getEmail (), $message -> getObject (),$message -> getMessage ());
+//             ($message -> getEmail ());
 
-            ->addPart(new DataPart(new File('/path/to/documents/contract.doc'), 'Contract'), 'application/msword');
+//             return $this -> redirectToRoute ('app_accueil');
 
-        $mailer->send($email);
+//         }
 
-        return $this->render('mailer/index.html.twig', [
-            'controller_name' => 'MailerController',
-        ]);
-    }
-}
+//         // A partir de la version 6.2 de Symfony, on n'est plus obligé d'écrire $form->createView(), il suffit de passer l'instance de FormInterface à la méthode render
+//         return $this -> render ('contact/index.html.twig',
+//         [
+//             'form' => $form -> createView (),
+//             // 'form' => $form
+//         ]
+//         );
+//     }
+// }
 
 
 // Email Addresses

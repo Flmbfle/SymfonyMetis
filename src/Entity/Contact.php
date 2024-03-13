@@ -16,7 +16,7 @@ class Contact
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $subject = null;
+    private ?string $objet = null;
 
     #[Assert\Email(message: "Veuillez saisir une adresse e-mail valide.")]
     private ?string $email = null;
@@ -29,14 +29,21 @@ class Contact
         return $this->id;
     }
 
-    public function getSubject(): ?string
+    public function setId(int $id): self
     {
-        return $this->subject;
+        $this->id = $id;
+
+        return $this;
     }
 
-    public function setSubject(string $subject): static
+    public function getObjet(): ?string
     {
-        $this->subject = $subject;
+        return $this->objet;
+    }
+
+    public function setObjet(string $objet): static
+    {
+        $this->objet = $objet;
 
         return $this;
     }
